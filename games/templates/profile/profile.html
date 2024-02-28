@@ -1,0 +1,72 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href={{ url_for('static', filename='css/profile.css') }}>
+{% endblock %}
+
+{% block content %}
+        <div class="profile-header">
+            <h1>Your user profile</h1>
+        </div>
+        <div class="profile__container">
+            <div class="profile-rightcol">
+                <div class="profile-details">
+                    <img width="200" height="200" src="https://img.icons8.com/nolan/200/user.png" alt="user"/>
+                    <h2>Welcome, <span>{{ session['username'] }}</span>!</h2>
+                    <!-- Links to favourite games -->
+                    <ul class="profile-links">
+                        <li>
+                            <a class="underline-link" href="{{ url_for("profile_bp.see_favourites") }}">View favourites</a>
+                        </li>
+                        <li>
+                            <a class="underline-link" href="{{ url_for("authentication_bp.logout") }}">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Shows reviews once added -->
+            <div class="profile-leftcol">
+                <div class="profile-activity">
+                    <h2>Recent Activity</h2>
+                    <div class="profile-activity__container">
+                        {% if most_recent_favourite is none and most_recent_review is none %}
+                            <p>No recent activity to show. Your most recent favourite or review will be shown here.</p>
+                        {% else %}
+                        <!-- Render the favourite, review, or both -->
+                        {% if most_recent_review is not none %}
+                            <p>Reviewed <a class="underline-link" href="{{ url_for("games_bp.game", game_id=most_recent_review.game.game_id) }}">{{ most_recent_review["game_title"] }}</a> on {{ most_recent_review["time_posted"] }}</p>
+                        {% endif %}
+                        {% if most_recent_favourite is not none %}
+                            <p>Last favourited <a class="underline-link" href="{{ url_for("games_bp.game", game_id=most_recent_favourite.game_id) }}">{{ most_recent_favourite["title"] }}</a></p>
+                        {% endif %}
+                    {% endif %}
+                    </div>
+                </div>
+                 <div class="profile-reviews">
+                    <h2>All Reviews</h2>
+                    {% if reviews|length > 0 %}
+                        {%  for review in reviews %}
+                            <ul class="review">
+                                <a href="{{ url_for("games_bp.game", game_id=review.game.game_id) }}">
+                                    <li>
+                                        <div class="review__byline">
+                                            <span>
+                                                {% for i in range(review.rating) %}⭐{% endfor %}
+                                            </span>
+                                            <span>{{ review.game.game_title }}</span>
+                                        </div>
+                                        <div class="review__content">{{ review.comment }}</div>
+                                        <div class="review__time">{{ review.time_posted }}</div>
+                                    </li>
+                                </a>
+                            </ul>
+                        {% endfor %}
+                    {% else %}
+                        <p>You haven't reviewed any games yet. Start <a class="underline-link" href="{{ url_for("games_bp.browse_games") }}">browsing</a> and leave a review!</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+{% endblock %}

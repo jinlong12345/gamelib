@@ -1,0 +1,46 @@
+<!-- Form for filtering search results -->
+<form id="filter" action="{{ url_for("search_bp.search") }}" method="GET">
+        <h3>Filter results by:</h3>
+        <!-- hidden input field to submit search term with filter so it can be included in the query params -->
+        <input type="hidden" name="term" value="{{ request.args.get('term') }}">
+        <div id="filter__content">
+        <!-- Filter by publisher -->
+            <div>
+                <label for="publisher-filter">Publisher:</label>
+                <select id="publisher-filter" name="publisher">
+                    <option disabled selected value> Select a publisher </option>
+                    {% for publisher in publishers %}
+                        <option value="{{ publisher.publisher_name }}">{{ publisher.publisher_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <!-- Filter by genres -->
+            <div>
+                <label for="genre-filter">Genre:</label>
+                <select id="genres-filter" name="genres" multiple>
+                    {% for genre in featured_genres %}
+                        <option value="{{ genre.genre_name }}">{{ genre.genre_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <!-- Filter by price -->
+            <div>
+                <label for="price-filter">Price:</label>
+                <div>
+                    <input type="range" min="1" max="70" step="1" value="70" name="price_max" class="slider" list="values">
+                    <datalist id="values">
+                        <option value="0" label="0"></option>
+                        <option value="10" label="10.00"></option>
+                        <option value="20" label="20.00"></option>
+                        <option value="30" label="30.00"></option>
+                        <option value="40" label="40.00"></option>
+                        <option value="50" label="50.00"></option>
+                        <option value="60" label="60.00"></option>
+                        <option value="70" label="70.00"></option>
+                    </datalist>
+                </div>
+            </div>
+            <!-- Only add option to filter if the user has already generated results -->
+            <button type="submit" {{ 'disabled' if not results|length }}>{{ "Apply Filter" if results|length }}</button>
+        </div>
+</form>

@@ -1,0 +1,38 @@
+<div class="form__wrapper">
+    {% if delete_review_url is not none %}
+        <div class="already_reviewed">
+            ⚠️ You have already reviewed this game. ⚠️ <br/>
+            Would you like to <a class="underline-link" href="{{ delete_review_url }}">delete your review and start again</a>?
+        </div>
+    {% else %}
+        <form action="{{ handler_url }}" method="POST">
+        {{ form.game_id }} <!-- Need to include hidden field as it tracks game being reviewed -->
+        {{ form.csrf_token }} <!-- Need to include this token as Flask WTForms requires it -->
+        <div class="form__field">
+            {{ form.rating.label }}{{ form.rating }}
+            {% if form.rating.errors %}
+                <ul class="form__errors">
+                    {% for error in form.rating.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        <div class="form__field">
+            {{ form.comment.label }}{{ form.comment(size=100, placeholder="Comment here", class="textarea", rows="6", wrap="hard") }}
+            {% if form.comment.errors %}
+                <ul class="form__errors">
+                    {% for error in form.comment.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        {{ form.submit }}
+         <div class="form__disclaimer">
+             You are leaving a review as <a class="underline-link" href="{{ url_for("profile_bp.user_profile") }}">{{ session["username"] }}</a>. Not you? <a class="underline-link" href="{{ url_for("authentication_bp.logout") }}">Log out</a> and log back in with the correct username.
+         </div>
+        </form>
+    {% endif %}
+</div>

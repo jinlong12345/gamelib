@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <header>
+        <h1>Browse all genres</h1>
+    </header>
+
+    {% for genre in all_genres %}
+        <a href="{{ genre.hyperlink }}">
+            {{ genre.genre_name }}
+        </a><br/>
+    {% endfor %}
+
+{% endblock %}

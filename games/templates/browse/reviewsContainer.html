@@ -1,0 +1,30 @@
+<div class="reviews__container" id="review">
+    <h2 class="description__h2">Leave a review</h2>
+    {% if "username" in session %}
+        <!-- If the user is signed in, prompt them to leave a review -->
+        {% include 'browse/reviewForm.html' %}
+    {% else %}
+        <a class="underline-link" href="/authentication/login">Sign in</a> to leave a review
+    {% endif %}
+    <h2 id="reviews-heading" class="description__h2">All reviews</h2>
+    <div class="all-reviews">
+        {% if reviews|length > 0 %}
+            {%  for review in reviews %}
+                <div class="review">
+                    <div class="review__byline">
+                        <span>
+                            <!-- renders: username   **** -->
+                            {{ review.username }}&nbsp;&nbsp;&nbsp;&nbsp;{% for i in range(review.rating) %}⭐{% endfor %}
+                        </span>
+                        <span class="review__time">
+                            {{ review.time_posted }}
+                        </span>
+                    </div>
+                    <div class="review__content">{{ review.comment }}</div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>This game has no reviews yet. Be the first!</p>
+        {% endif %}
+    </div>
+</div>

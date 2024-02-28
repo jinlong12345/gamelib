@@ -1,0 +1,7 @@
+id,game-id,username,review-text,rating
+1,1,"jess","Great game!",5
+2,1,"milton","Hated it",1
+3,1,"david","Was really hard",3
+4,2,"jess","Okay game!",4
+5,2,"milton","Hated it",0
+6,2,"david","Was really hard",5

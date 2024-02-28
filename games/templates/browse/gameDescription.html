@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+{% block head %}
+    {{ super() }}
+    <!-- add in Game Description CSS stylesheet -->
+    <link rel="stylesheet" href={{ url_for('static', filename='css/gameDescription.css') }} />
+{% endblock %}
+{% block content %}
+              <main id="main">
+                  <h1 class="description__h1">{{ game.title }}</h1>
+                    <div class="description__container">
+                        <div class="game__description">
+                            <h2 class="description__h2">About the game</h2>
+                            <p>{{ game.description }}</p>
+                            <h2 class="description__h2">View gameplay</h2>
+                            <video width="100%" controls>
+                                <source src="{{ game.movie }}" type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
+
+                            {% include 'browse/reviewsContainer.html' %}
+                          </div>
+                        {%  include 'browse/detailsSidebar.html' %}
+                    </div>
+              </main>
+{% endblock %}

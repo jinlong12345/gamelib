@@ -1,0 +1,283 @@
+/* CSS variables for consistent styling */
+:root {
+    --base-unit: 0.25rem;
+    --base-half-unit: calc(var(--base-unit) / 2);
+
+    /* Typography */
+    --font-base-unit: var(--base-unit);
+    --title-font: "Impact", "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    --body-serif: "Open Sans", "Trebuchet MS", "Lucida Sans Unicode",
+    "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+
+
+    /* Font sizing */
+    --font-size-12: calc(var(--font-base-unit) * 3);
+    --font-size-16: calc(var(--font-base-unit) * 4);
+    --font-size-20: calc(var(--font-base-unit) * 5);
+    --font-size-24: calc(var(--font-base-unit) * 6);
+    --font-size-32: calc(var(--font-base-unit) * 8);
+    --font-size-36: calc(var(--font-base-unit) * 9);
+    --font-size-40: calc(var(--font-base-unit) * 10);
+    --font-size-48: calc(var(--font-base-unit) * 12);
+    --font-size-64: calc(var(--font-base-unit) * 16);
+    --font-size-96: calc(var(--font-base-unit) * 24);
+    --uppercase-link-size: calc(var(--font-base-unit) * 3.5);
+
+    /* Font weights */
+    --font-weight-lighter: 100;
+    --font-weight-light: 200;
+    --font-weight-normal: 400;
+    --font-weight-bold: 700;
+    --font-weight-bolder: 900;
+
+    /* Space */
+    --space-base-unit: var(--base-unit);
+    --space-8: calc(var(--space-base-unit) * 2);
+    --space-16: calc(var(--space-base-unit) * 4);
+    --space-24: calc(var(--space-base-unit) * 6);
+    --space-32: calc(var(--space-base-unit) * 8);
+    --space-40: calc(var(--space-base-unit) * 10);
+    --space-48: calc(var(--space-base-unit) * 12);
+    --space-64: calc(var(--space-base-unit) * 16);
+    --space-80: calc(var(--space-base-unit) * 20);
+    --space-160: calc(var(--space-base-unit) * 40);
+
+    /* Common dimensions */
+    --sidebar-width: 340px;
+    --toggle-width: 40px;
+    --toggle-height: 20px;
+    --authentication-form-width: 600px;
+
+    /* Standard for image cover art (not to exceed these or resolution will be bad) */
+    --max-image-width: 460px;
+    --max-image-height: 215px;
+
+    /* Colours */
+    --colour-white: #FFFFFF;
+    --colour-magenta: #B32BFF;
+    --colour-blue: #5662FF;
+    --colour-black: #000000;
+    --colour-light-grey: #EEECEC;
+    --colour-light-blue: #E3F4FF;
+    --colour-muted-blue: #324883;
+    --colour-navy: #03207C;
+    --colour-red: #ff0000;
+
+    --background-colour: var(--colour-light-grey);
+    --sidebar-background-colour: var(--colour-white);
+    --sidebar-link-hover: var(--colour-light-blue);
+    --text-dark: var(--colour-black);
+    --text-light: var(--colour-white);
+}
+
+:root.dark-mode {
+    /* Overwrite tokens for dark mode */
+    --background-colour: var(--colour-navy);
+    --sidebar-background-colour: var(--colour-muted-blue);
+    --sidebar-link-hover: var(--colour-magenta);
+    --text-dark: var(--colour-white);
+    --text-light: var(--colour-black);
+}
+
+* {
+    box-sizing: border-box;
+    font-family: var(--body-serif);
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-dark);
+}
+
+body {
+    margin: 0;
+    background-color: var(--background-colour);
+    color: var(--text-dark);
+}
+
+.header__h1 {
+    font-family: var(--title-font);
+    font-size: var(--font-size-96);
+    margin-top: 0;
+    margin-bottom: var(--space-16);
+    background: radial-gradient(50% 50.00% at 50% 50.00%, var(--colour-blue) 0%, var(--colour-magenta) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.header__h2 {
+    font-family: var(--body-serif);
+    font-size: var(--font-size-24);
+    margin: 0;
+}
+
+.header {
+    width: calc(100vw - var(--sidebar-width));
+    padding: var(--space-24) 0 var(--space-48);
+    text-align: center;
+}
+
+.header__links {
+    margin-top: var(--space-16);
+}
+
+.header__links a, .underline-link {
+    font-size: var(--uppercase-link-size);
+    text-transform: uppercase;
+    padding: var(--base-unit);
+    border-bottom: 1px solid var(--text-dark);
+}
+
+.header__links a:hover, .underline-link:hover {
+    color: var(--colour-magenta);
+    border-bottom: 1px solid var(--colour-magenta);
+}
+
+/* Main container */
+#container {
+    max-width: calc(100% - var(--sidebar-width));
+    margin-left: var(--sidebar-width);
+    padding: var(--space-16) var(--space-160);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Page titles */
+.page-title {
+    text-align: left;
+    font-size: var(--font-size-32);
+}
+
+/* Sidebar */
+#sidebar {
+    height: 100%;
+    width: var(--sidebar-width);
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: var(--sidebar-background-colour);
+    overflow-x: hidden;
+    padding: var(--space-64);
+    display: flex;
+    flex-direction: column;
+}
+
+#sidebar__logo {
+    align-self: center;
+}
+
+.sidebar__menu, .sidebar__menu__submenu {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar__menu__item:first-child {
+    margin-top: var(--space-32);
+}
+
+.sidebar__menu__item {
+    margin: var(--space-24) 0;
+    font-weight: var(--font-weight-bolder);
+}
+
+.sidebar__menu__item:hover:not(:nth-child(6)), .sidebar__menu__submenu__item:hover {
+    background-color: var(--sidebar-link-hover);
+}
+
+/* Have authentication links hover separately for sign up/sign in */
+.sidebar__menu__item.authentication:hover {
+    background-color: transparent;
+}
+
+.sidebar__menu__item.authentication a:hover {
+    background-color: var(--sidebar-link-hover);
+}
+
+.sidebar__menu__submenu__item {
+    padding-left: var(--space-24);
+}
+
+/* Toggle button */
+#toggle {
+    margin-top: var(--space-24);
+    display: flex;
+    align-items: center;
+}
+
+#toggle label {
+    text-transform: uppercase;
+    font-size: var(--font-size-12);
+    margin-left: var(--space-8);
+}
+#sidebar__toggle__checkbox {
+    position: relative;
+    appearance: none;
+    width: var(--toggle-width);
+    height: var(--toggle-height);
+    background: var(--colour-light-grey);
+    border-radius: 50px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+#sidebar__toggle__checkbox:checked[type="checkbox"] {
+    background: var(--colour-blue);
+}
+
+#sidebar__toggle__checkbox::after {
+    position: absolute;
+    content: "";
+    width: var(--toggle-height);
+    height: var(--toggle-height);
+    top: 0;
+    left: 0;
+    background: var(--colour-white);
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    transform: scale(1.1);
+    transition: 0.4s;
+}
+
+#sidebar__toggle__checkbox:checked::after {
+    left: 50%;
+}
+
+/* Search bar */
+#main__search {
+    display: grid;
+    grid-template-columns: 90% 10%;
+    width: 100%;
+    grid-column-gap: var(--space-8);
+    margin-bottom: var(--space-32);
+}
+
+#main__search input {
+    width: 100%;
+    border: 1px solid var(--text-dark);
+    font-size: var(--font-size-16);
+    border-radius: 5px;
+    padding: var(--space-16);
+}
+
+
+#main__search button, #filter button, .form__wrapper input[type="submit"] {
+    background-color: var(--text-dark);
+    color: var(--text-light);
+	border: none;
+	padding: var(--space-8);
+    cursor: pointer;
+	outline: inherit;
+    font-size: var(--font-size-12);
+    text-transform: uppercase;
+    border-radius: 5px;
+}
+
+#main__search button:hover, #filter button:hover, .form__wrapper input[type="submit"]:hover {
+    background-color: var(--colour-magenta);
+}
+

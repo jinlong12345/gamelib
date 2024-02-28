@@ -1,0 +1,102 @@
+main {
+   width: 90%;
+}
+
+/* profile header */
+.profile-header {
+    background-color: var(--colour-magenta);
+    color: var(--text-dark);
+    padding: 20px;
+    text-align: center;
+}
+
+.profile__container {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    grid-column-gap: var(--space-64);
+}
+
+/* details section */
+.profile-details {
+    margin-top: 20px;
+    padding: var(--space-24);
+    text-align: center;
+    color: var(--text-dark);
+    border: 1px solid var(--text-dark);
+}
+
+.profile-details a {
+    margin-top: var(--space-8);
+}
+
+.profile-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-links li {
+    margin-bottom: var(--space-16);
+}
+
+.profile-details span {
+    color: var(--colour-magenta);
+}
+
+.profile-leftcol {
+    order: 1;
+}
+
+.profile-rightcol {
+    order: 2;
+}
+
+/* Reviews */
+.profile-reviews, .profile-activity {
+    margin-top: 20px;
+    border: 1px solid var(--text-dark);
+    padding: var(--space-16) var(--space-24);
+    max-height: 600px;
+    overflow-y: scroll;
+}
+
+.profile-activity__container {
+    text-align: left;
+}
+
+.profile-reviews ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: left;
+}
+
+.profile-reviews li {
+    margin-bottom: var(--space-32);
+    border-radius: 5px;
+    color: var(--text-dark);
+}
+
+.review__byline {
+    font-weight: bold;
+    border-bottom: 1px solid var(--colour-magenta);
+    margin-bottom: var(--space-8);
+    padding-right: var(--space-8);
+}
+
+.review__byline span {
+    display: block;
+    font-size: var(--font-size-16);
+    text-transform: uppercase;
+}
+
+.review__byline span:first-child {
+    margin-bottom: var(--space-8);
+    font-size: var(--font-size-20);
+}
+
+.review__time {
+    font-size: var(--font-size-12);
+    margin-top: var(--space-8);
+    font-weight: normal;
+    font-style: italic;
+}

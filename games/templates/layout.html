@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html lang="en" class="{{ 'dark-mode' if session.get('theme') == 'dark' }}">
+<head>
+    {% block head %}
+        <meta charset="UTF-8" />
+        <title>{{ title if title else "CS235 Game Library" }}</title>
+        <!-- Load Google font -->
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:400,700"
+        />
+        <link rel="icon" type="image/x-icon" href={{ url_for('static', filename='images/favicon.png') }}>
+        <link
+          rel="stylesheet" href={{ url_for('static', filename='css/main.css') }}
+        />
+    {% endblock %}
+</head>
+<body>
+    <div id="container">
+        {% include 'header.html' %}
+
+        <main>
+            <!-- Main content block to be supplied by page -->
+            {% block content %} {% endblock %}
+        </main>
+    </div>
+
+    <!-- Include sidebar partial -->
+    {% include 'sidebar.html' %}
+</body>
+</html>

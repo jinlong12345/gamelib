@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% block head %}
+    {{ super() }}
+    <!-- add in search CSS stylesheet -->
+    <link rel="stylesheet" href={{ url_for('static', filename='css/search.css') }} />
+    <!-- add in browse CSS stylesheet for games grid -->
+    <link rel="stylesheet" href={{ url_for('static', filename='css/browse.css') }} />
+{% endblock %}
+
+{% block content %}
+    <h1>Search for a game</h1>
+     <form id="main__search" action="/search" method="GET">
+         <input type="search" name="term" placeholder="Search by title, publisher name, or genre name" aria-label="Search games by title, publisher, or genre" />
+         <button type="submit">Search</button>
+    </form>
+
+    <!-- If there is an error message, display that instead of the results -->
+    {% if error_message %}
+        <p class="search__errormessage">⚠️ {{ error_message }} ⚠️</p>
+    <!-- Only render results if the user's already searched something -->
+    {% elif results|length %}
+        {% include 'search/filter_form.html' %}
+        {% include 'search/results.html' %}
+    <!-- If the user has searched something and there were no results, render a message indicating this -->
+    {% elif term %}
+        <p class="search__errormessage">No search results found for {{ term }}. Please try again.</p>
+    {% endif %}
+{% endblock %}

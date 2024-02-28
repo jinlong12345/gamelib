@@ -1,0 +1,89 @@
+<div class="game__details__wrapper">
+    <div class="game__details">
+                            <img class="game__image" src="{{ game.image_url }}" alt="{{ game.title }}" />
+                            <dl class="game__details__list">
+                                <div>
+                                    {% if "username" in session %}
+                                        {% if is_game_in_favourites %}
+                                             <a class="underline_link" id="favourite_game" href="{{ url_for("profile_bp.remove_favourite", game_id=game.game_id) }}">
+                                             <div class="heart__container">
+                                                <span class="heart favourited"></span>
+                                             </div>
+                                            Remove game from favourites
+                                        </a>
+                                        {% else %}
+                                           <a class="underline_link" id="favourite_game" href="{{ url_for("profile_bp.favourite_game", game_id=game.game_id) }}">
+                                            <div class="heart__container">
+                                                <span class="heart"></span>
+                                            </div>
+                                            Add game to favourites
+                                        </a>
+                                        {% endif %}
+
+                                    {% else %}
+                                        <a class="underline-link" href="#review">Sign in to add to favourites</a>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <dt>Rating:</dt>
+                                    {% if average_rating is not none %}
+                                        <dd>
+                                            <!-- renders a star for each number in the rating, i.e. a score of 3 would render *** -->
+                                            {% for i in range(average_rating) %}⭐{% endfor %}
+                                        </dd>
+                                    {% else %}
+                                        <dd>No reviews yet!</dd>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <dt>Publisher:</dt>
+                                    <dd>{{ game.publisher }}</dd>
+                                </div>
+                                <div>
+                                    <dt>Developer:</dt>
+                                    <dd>{{ game.developer }}</dd>
+                                </div>
+                                {% if game.website %}
+                                    <div>
+                                        <dt>Website:</dt>
+                                        <dd><a href="{{ game.website }}" target="_blank" rel="noreferrer">{{ game.website }}</a></dd>
+                                    </div>
+                                {% endif %}
+                                <div>
+                                    <dt>Release Date:</dt>
+                                    <dd>{{ game.release_date }}</dd>
+                                </div>
+                                <div>
+                                    <dt>Price:</dt>
+                                    <dd>${{ "%.2f" % game.price }}</dd>
+                                </div>
+                                <div>
+                                    <dt>Recommendations:</dt>
+                                    <dd>{{ game.recommendations }}</dd>
+                                </div>
+                                <div>
+                                    <dt>Genres:</dt>
+                                    <dd>
+                                        {% for genre in game['genres'] %}
+                                            <a href="{{ url_for('genres_bp.genre', genre_name=genre) }}">{{ genre }}</a>{{ "," if not loop.last }}
+                                        {% endfor %}
+                                    </dd>
+                                </div>
+                                <div>
+                                    <dt>Windows:</dt>
+                                    <dd>{{ "✅" if game.windows else "❌" }}</dd>
+                                </div>
+                                <div>
+                                    <dt>Mac:</dt>
+                                    <dd>{{ "✅" if game.mac else "❌" }}</dd>
+                                </div>
+                                <div>
+                                    <dt>Linux:</dt>
+                                    <dd>{{ "✅" if game.linux else "❌" }}</dd>
+                                </div>
+                                <div>
+                                    <a class="underline-link" href="#review">{{ "Leave a review" if "username" in session else "Sign in to leave a review"  }}</a>
+                                </div>
+                            </dl>
+                        </div>
+</div>

@@ -1,0 +1,45 @@
+ <div class="pagination">
+        <!-- If not on the first page, display a button to navigate to previous page -->
+        {% if current_page > 1 %}
+            <a class="pagination__item" href="{{ page_url }}?page={{ current_page - 1 }}" rel="prev">Prev</a>
+        {% endif %}
+
+        <!-- if there are only 5 pages of search results, display 1 2 3 4 5 -->
+        {% if num_pages <= 5 %}
+         {% for i in range(num_pages) %}
+                <!-- add 1 to i to get rid of 0-indexing -->
+                <a class="pagination__item {{ 'active' if current_page == i + 1 }}" href="{{ page_url }}?page={{ i + 1 }}">{{ i + 1 }}</a>
+         {% endfor %}
+
+        <!-- If more than 5 pages & on the first five pages, display 1 2 3 4 5 ... last_page -->
+        {% elif current_page < 5 %}
+            {% for i in range(5) %}
+                <a class="pagination__item {{ 'active' if current_page == i + 1 }}" href="{{ page_url }}?page={{ i + 1 }}">{{ i + 1 }}</a>
+            {% endfor %}
+            <span class="pagination__ellipsis">...</span>
+            <a class="pagination__item" href="{{ page_url }}?page={{ num_pages}}">{{ num_pages }}</a>
+
+        <!-- If on the last five pages, display 1 ... 6 7 8 9 10 -->
+        {% elif current_page > num_pages - 5 %}
+            <a class="pagination__item" href="{{ page_url }}">1</a>
+            <span class="pagination__ellipsis">...</span>
+            {% for i in range(num_pages - 4, num_pages + 1) %}
+                <a class="pagination__item {{ 'active' if current_page == i }}" href="{{ page_url }}?page={{ i }}">{{ i }}</a>
+            {% endfor %}
+
+        <!-- Otherwise, display 1 ... 5 6 7 8 9 ... last_page -->
+        {% else %}
+            <a class="pagination__item" href="{{ page_url }}">1</a>
+            <span class="pagination__ellipsis">...</span>
+            {% for i in range(current_page - 2, current_page + 3) %}
+                <a class="pagination__item {{ 'active' if current_page == i }}" href="{{ page_url }}?page={{ i }}">{{ i }}</a>
+            {% endfor %}
+            <span class="pagination__ellipsis">...</span>
+            <a class="pagination__item" href="{{ page_url }}?page={{ num_pages}}">{{ num_pages }}</a>
+        {% endif %}
+
+        <!-- If not on the last page, display a button to navigate to previous page -->
+        {% if current_page < num_pages %}
+            <a class="pagination__item" href="{{ page_url }}?page={{ current_page + 1 }}" rel="next">Next</a>
+        {% endif %}
+</div>

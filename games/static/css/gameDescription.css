@@ -1,0 +1,182 @@
+/* CSS for game description page */
+:root {
+    --details-width: 400px;
+    --details-padding: var(--space-16);
+    --reviews-max-height: 300px;
+
+    --heart-height: 25px;
+    --heart-width: 15px;
+    --heart-border-radius: 50px 50px 0 0;
+    --heart-transition: all 0.2s;
+}
+
+#main {
+    margin-bottom: var(--space-80);
+}
+
+.description__container {
+    display: grid;
+    grid-template-columns: auto var(--details-width);
+    grid-column-gap: var(--space-64);
+    text-align: left;
+}
+
+.description__h1 {
+    font-size: var(--font-size-48);
+    margin-top: var(--space-16);
+}
+
+/* Main description */
+.description__h2 {
+    text-transform: uppercase;
+    font-size: var(--font-size-20);
+    margin: 0 0 var(--space-16);
+}
+
+/* Details sidebar */
+#favourite_game {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.game__details__list #favourite_game {
+    margin-bottom: var(--space-32);
+}
+
+.heart__container {
+    display: flex;
+    margin-right: var(--space-32);
+}
+
+.heart{
+    position: relative;
+    height: var(--heart-height);
+    width: var(--heart-width);
+    background: var(--text-dark);
+    border-radius: var(--heart-border-radius);
+    transform: rotate(45deg);
+    transition: var(--heart-transition);
+    left: var(--heart-width);
+}
+
+.heart:before{
+    content: '';
+    position: absolute;
+    background: var(--text-dark);
+    height: var(--heart-height);
+    width: var(--heart-width);
+    transform: rotate(-90deg);
+    border-radius: var(--heart-border-radius);
+    left: -5px;
+    top: 5px;
+    transition: var(--heart-transition);
+}
+
+.heart.favourited, .heart.favourited:before {
+    background: var(--colour-magenta);
+}
+
+#favourite_game:hover .heart, #favourite_game:hover .heart::before {
+    background: var(--colour-magenta);
+    cursor: pointer;
+}
+
+#favourite_game:hover .heart.favourited, #favourite_game:hover .heart.favourited::before {
+    background: var(--text-dark);
+}
+
+
+.game__details {
+    background-color: var(--text-light);
+    padding: var(--details-padding);
+}
+
+.game__image {
+    /* Simple calculation to fit image to details sidebar container */
+    width: calc(var(--details-width) - 2 * var(--details-padding));
+    object-fit: contain;
+}
+
+.game__details__list {
+    margin: var(--space-16) 0 0;
+}
+
+.game__details__list > div {
+    margin-bottom: var(--space-16);
+}
+
+.game__details__list dt {
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    margin-right: var(--space-8);
+}
+
+.game__details__list dt, .game__details__list dd {
+    display: inline-block;
+}
+
+dd {
+    margin: 0;
+}
+
+/* Reviews section */
+.reviews__container, #reviews-heading {
+    margin-top: var(--space-32);
+}
+
+/* Review form */
+.form__field label {
+    display: block;
+    text-transform: uppercase;
+    font-weight: var(--font-weight-bold);
+    padding-bottom: var(--space-8);
+    margin-top: var(--space-8);
+}
+
+.form__field input {
+    padding: var(--space-8);
+    font-size: var(--font-size-16);
+}
+
+.form__field textarea {
+    width: 100%;
+    padding: var(--space-16);
+}
+
+input[type="submit"] {
+    margin: var(--space-16) 0;
+}
+
+.form__disclaimer {
+    font-size: var(--font-size-12);
+    margin-bottom: var(--space-32);
+}
+
+.form__disclaimer span {
+    font-style: italic;
+}
+
+/* All reviews list */
+.all-reviews {
+    max-height: var(--reviews-max-height);
+    overflow-y: scroll;
+}
+
+div.review:not(:last-child) {
+    margin-bottom: var(--space-16);
+}
+
+.review__byline {
+    font-weight: bold;
+    border-bottom: 1px solid var(--colour-magenta);
+    margin-bottom: var(--space-8);
+    display: flex;
+    justify-content: space-between;
+    padding-right: var(--space-8);
+}
+
+.review__byline .review__time {
+    font-weight: normal;
+    font-style: italic;
+}

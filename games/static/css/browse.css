@@ -1,0 +1,65 @@
+/* Games grid */
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: var(--space-16);
+    grid-row-gap: var(--space-16);
+}
+
+/* Individual game card */
+.games-grid__card {
+    position: relative;
+}
+
+.games-grid__card:hover .games-grid__card__image {
+    opacity: 0.1;
+}
+
+.games-grid__card__overlay {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    padding: var(--space-16);
+    display: flex;
+    align-items: center;
+}
+
+.games-grid__card:hover .games-grid__card__overlay {
+    visibility: visible;
+}
+
+.games-grid__card__overlay dl {
+    text-align: left;
+    margin: 0;
+}
+
+.games-grid__card__overlay dd, .games-grid__card__overlay dt {
+    margin: 0;
+    display: inline-block;
+}
+
+.games-grid__card__overlay dt {
+    font-weight: var(--font-weight-bold);
+}
+
+/* Pagination */
+.pagination {
+    margin: var(--space-16) 0;
+}
+
+.pagination__item {
+    padding: var(--space-8);
+    border: 1px solid var(--text-dark);
+    border-radius: 5px;
+    font-size: var(--font-size-12);
+}
+
+.pagination__item.active, .pagination__item:hover {
+    background-color: var(--sidebar-link-hover);
+    color: var(--text-dark);
+}
+

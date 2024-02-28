@@ -1,0 +1,38 @@
+<h1 class="search__h1">{{ results|length }} Search result{{ 's' if results|length != 1 }}</h1>
+        <div class="results__container">
+        <!-- Games table layout -->
+            <table>
+                <thead>
+                <tr class="headings">
+                    <th>Title</th>
+                    <th>Publisher</th>
+                    <th>Genres</th>
+                    <th>Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for game in results %}
+                        <tr>
+                            <td>
+                                <a href="{{ url_for('games_bp.game', game_id=game.game_id) }}">{{ game.title }}</a>
+                            </td>
+                            <td>
+                                <a href="{{ url_for('games_bp.game', game_id=game.game_id) }}">{{ game.publisher }}</a>
+                            </td>
+                            <td>
+                                <a href="{{ url_for('games_bp.game', game_id=game.game_id) }}">
+                                    {% for genre in game['genres'] %}
+                                        <!-- add comma between genre names if not the final item in the list -->
+                                        {{ genre }}{{ "," if not loop.last }}
+                                    {% endfor %}
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ url_for('games_bp.game', game_id=game.game_id) }}">{{ game.price }}</a>
+                            </td>
+                        </tr>
+                    </a>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>

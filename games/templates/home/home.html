@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+{% block head %}
+    {{ super() }}
+    <!-- add in home CSS stylesheet -->
+    <link rel="stylesheet" href={{ url_for('static', filename='css/home.css') }} />
+    <!-- add in games stylesheet for featured games -->
+    <link rel="stylesheet" href={{ url_for('static', filename='css/browse.css') }} />
+{% endblock %}
+{% block content %}
+    <!-- Search bar for homepage -->
+    <form id="main__search" action="/search" method="GET">
+        <input id="main__search__input" type="search" name="term" placeholder="Search by title, publisher name, or genre name" aria-label="Search games by title, publisher, or genre" />
+        <button type="submit">Search</button>
+    </form>
+    <p class="main__description">
+        This is a game library built for CS235 at the University of Auckland. Here, you may browse through a list of games, search for games, and browse for games by genre.
+    </p>
+    <h2 class="main__h2">Recent Games</h2>
+    <div class="main__featured-games__grid">
+    <!-- Display 3 most recent games -->
+    {% for game in featured_games %}
+        <div class="games-grid__card">
+            <a href="{{ url_for('games_bp.game', game_id=game.game_id) }}">
+                <img class="games-grid__card__image" src="{{ game.image_url }}" alt="{{ game.title }}" />
+                <div class="games-grid__card__overlay">
+                    <dl>
+                        <div class="games-grid__card__overlay__item">
+                            <dt>
+                                Price
+                            </dt>
+                            <dd>
+                                {{ game.price }}
+                            </dd>
+                        </div>
+                        <div class="games-grid__card__overlay__item">
+                            <dt>
+                                Publisher
+                            </dt>
+                            <dd>
+                                {{ game.publisher }}
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+    </div>
+    <a id="main__link" href="{{ url_for('games_bp.browse_games') }}">View all games</a>
+{% endblock %}

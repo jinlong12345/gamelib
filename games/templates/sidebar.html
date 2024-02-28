@@ -1,0 +1,39 @@
+<aside id="sidebar">
+    <a id="sidebar__logo" href="{{ url_for('home_bp.home') }}"><img width="170" height="170" src="https://img.icons8.com/nolan/188/controller.png" alt="controller"/></a>
+    <ul class="sidebar__menu">
+        <li class="sidebar__menu__item"><a class="sidebar__menu__item__link" href="{{ url_for('home_bp.home') }}">Home</a></li>
+        {% if session["username"] %}
+            <li class="sidebar__menu__item">
+                <a class="sidebar__menu__item__link" href="{{ url_for('profile_bp.see_favourites') }}">Favourites</a>
+            </li>
+            <li class="sidebar__menu__item">
+                <a class="sidebar__menu__item__link" href="{{ url_for('profile_bp.user_profile') }}">Profile</a>
+            </li>
+        {% endif %}
+        <li class="sidebar__menu__item"><a class="sidebar__menu__item__link" href="{{ url_for('games_bp.browse_games') }}">All Games</a></li>
+        <li class="sidebar__menu__item"><a class="sidebar__menu__item__link" href="{{ url_for('search_bp.search') }}">Search</a></li>
+        <li class="sidebar__menu__item">Browse by genre</li>
+        <ul class="sidebar__menu__submenu">
+            {% for genre in featured_genres %}
+                <li class="sidebar__menu__submenu__item">
+                    <a class="sidebar__menu__item__link" href="{{ genre.hyperlink }}">
+                        {{ genre.genre_name }}
+                    </a>
+                </li>
+            {% endfor %}
+            <li class="sidebar__menu__submenu__item"><a href="{{ url_for('genres_bp.browse_genres') }}">View all genres</a></li>
+        </ul>
+        <li class="sidebar__menu__item authentication">
+            {% if session["username"] %}
+                <a class="sidebar__menu__item__link" href="{{ url_for('authentication_bp.logout') }}">Logout</a>
+            {% else %}
+                <a class="sidebar__menu__item__link" href="{{ url_for('authentication_bp.register') }}">Sign Up</a> or <a class="sidebar__menu__item__link" href="{{ url_for('authentication_bp.login') }}">Sign In</a>
+            {% endif %}
+        </li>
+    </ul>
+    <div class="sidebar__toggle">
+        <form id="toggle" method="POST" action="{{ url_for('utilities_bp.toggle_theme', current_page=request.path) }}">
+            <input {{ "checked" if session['theme'] == 'dark' }} id="sidebar__toggle__checkbox" type="checkbox" onclick='(function(e){  document.getElementById("toggle").submit() })();'><label class="sidebar__toggle__label" for="sidebar__toggle__checkbox">Dark Mode</label>
+        </form>
+    </div>
+</aside>

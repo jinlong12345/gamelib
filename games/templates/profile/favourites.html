@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+{% block head %}
+    {{ super() }}
+    <!-- add in search CSS stylesheet for table -->
+    <link rel="stylesheet" href={{ url_for('static', filename='css/search.css') }} />
+    <!-- add in gameDescription CSS stylesheet for heart -->
+    <link rel="stylesheet" href={{ url_for('static', filename='css/gameDescription.css') }} />
+{% endblock %}
+
+{% block content %}
+    <h1 class="favourites__h1">Favourites ❤️</h1>
+    {% if favourite_games|length %}
+        <div class="favourites__container">
+            <table>
+                <thead>
+                    <tr class="headings">
+                        <th>Title</th>
+                        <th>Publisher</th>
+                        <th>Genres</th>
+                        <th>Remove favourite</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for game in favourite_games %}
+                         <tr>
+                            <td>
+                                <a href="{{ url_for('games_bp.game', game_id=game.game_id) }}">{{ game.title }}</a>
+                            </td>
+                            <td>
+                                <a href="{{ url_for('games_bp.game', game_id=game.game_id) }}">{{ game.publisher.publisher_name }}</a>
+                            </td>
+                            <td>
+                                <a href="{{ url_for('games_bp.game', game_id=game.game_id) }}">
+                                {% for genre in game.genres %}
+                                    <!-- add comma between genre names if not the final item in the list -->
+                                    {{ genre.genre_name }}{{ "," if not loop.last }}
+                                {% endfor %}
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ url_for('profile_bp.remove_favourite', game_id=game.game_id) }}">
+                                    <div id="favourite_game" class="heart__container">
+                                        <span class="heart favourited"></span>
+                                    </div>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        You haven't favourited any games yet. Start <a class="underline-link" href="{{ url_for("games_bp.browse_games") }}">browsing</a> to create your list!
+    {% endif %}
+{% endblock %}
